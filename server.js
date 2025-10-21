@@ -68,7 +68,12 @@ app.post("/upload", upload.single("video"), async (req, res) => {
 	// Save it back to file
 	fs.writeFileSync(`/app/kdenlive/index.mlt`, updatedXml);
 
-	child_process.execSync(`melt "/app/kdenlive/index.mlt"`);
+	try {
+		const result = child_process.execSync(`melt "/app/kdenlive/index.mlt"`);
+		console.log({ result });
+	} catch (error) {
+		console.log({ error });
+	}
 
 	const webmFilename = `${path.parse(filePath).name}.webm`;
 
