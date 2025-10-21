@@ -15,10 +15,12 @@ function logMeltVersion() {
 }
 
 // Log melt version on server startup
-console.log(logMeltVersion());
+console.log("init log!!!", logMeltVersion());
 
 // Basic endpoint to verify the server is running
 app.get("/", (req, res) => {
+	console.log("request!!!!");
+
 	res.send(logMeltVersion());
 });
 
