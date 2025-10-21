@@ -46,7 +46,7 @@ app.post("/upload", upload.single("video"), async (req, res) => {
 
 	const videoFolder = `/output`;
 
-	const kdenlive = fs.readFileSync(`/kdenlive/index.mlt`, "utf8");
+	const kdenlive = fs.readFileSync(`/app/kdenlive/index.mlt`, "utf8");
 	// Parse XML to JS object
 	const result = await xml2js.parseStringPromise(kdenlive);
 
@@ -66,9 +66,9 @@ app.post("/upload", upload.single("video"), async (req, res) => {
 	const updatedXml = builder.buildObject(result);
 
 	// Save it back to file
-	fs.writeFileSync(`/kdenlive/index.mlt`, updatedXml);
+	fs.writeFileSync(`/app/kdenlive/index.mlt`, updatedXml);
 
-	child_process.execSync(`melt /kdenlive/index.mlt"`);
+	child_process.execSync(`melt /app/kdenlive/index.mlt"`);
 
 	const webmFilename = `${path.parse(filePath).name}.webm`;
 
