@@ -20,5 +20,8 @@
 	"bugs": {
 		"url": "https://github.com/aihara-sama/kdenlive/issues"
 	},
-	"homepage": "https://github.com/aihara-sama/kdenlive#readme"
+	"homepage": "https://github.com/aihara-sama/kdenlive#readme",
+	"dependencies": {
+		"express": "^5.1.0"
+	}
 }
