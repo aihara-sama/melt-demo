@@ -8,7 +8,8 @@ const port = process.env.PORT || 3000;
 // Function to run 'melt -v' and log the output
 function logMeltVersion() {
 	try {
-		child_process.execSync(`melt -v`);
+		const result = child_process.execSync(`melt -v`);
+		return result;
 	} catch (error) {
 		return Buffer.from(error.output[1]).toString("utf-8");
 	}
