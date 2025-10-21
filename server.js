@@ -4,6 +4,7 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
+const xml2js = require("xml2js");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -36,15 +37,44 @@ const upload = multer({
 	},
 });
 
-app.post("/upload", upload.single("video"), (req, res) => {
+app.post("/upload", upload.single("video"), async (req, res) => {
 	if (!req.file) {
 		return res
 			.status(400)
 			.json({ error: "No file uploaded or invalid file type" });
 	}
+
+	const videoFolder = `/output`;
+
+	const kdenlive = fs.readFileSync(`/kdenlive/index.mlt`, "utf8");
+	// Parse XML to JS object
+	const result = await xml2js.parseStringPromise(kdenlive);
+
+	const filePath = `/app/${req.file.filename}`;
+
+	// Set source path
+	result.mlt.chain[0].property[2]._ = filePath;
+	result.mlt.chain[1].property[2]._ = filePath;
+	result.mlt.chain[2].property[2]._ = filePath;
+
+	// Set target path
+	result.mlt.consumer[0].$.target = `${videoFolder}/${
+		path.parse(filePath).name
+	}.webm`;
+
+	const builder = new xml2js.Builder({ headless: true, pretty: true });
+	const updatedXml = builder.buildObject(result);
+
+	// Save it back to file
+	fs.writeFileSync(`/kdenlive/index.mlt`, updatedXml);
+
+	child_process.execSync(`melt /kdenlive/index.mlt"`);
+
+	const webmFilename = `${path.parse(filePath).name}.webm`;
+
 	res.json({
 		message: "File uploaded successfully",
-		filename: req.file.filename,
+		filePath: `${videoFolder}/${webmFilename}`,
 	});
 });
 

@@ -3,15 +3,80 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title>MP4 File Upload</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 20px;
+			}
+			.upload-container {
+				text-align: center;
+			}
+			#uploadForm {
+				margin: 20px 0;
+			}
+			#status {
+				margin-top: 20px;
+				color: green;
+			}
+			#error {
+				margin-top: 20px;
+				color: red;
+			}
+		</style>
 	</head>
-	<body style="background-color: red">
-		<video
-			src="background5.webm"
-			autoplay
-			controls
-			loop
-			type='video/webm; codecs="vp9"'
-		></video>
+	<body>
+		<div class="upload-container">
+			<h1>Upload MP4 File</h1>
+			<form id="uploadForm" enctype="multipart/form-data">
+				<input
+					type="file"
+					id="videoInput"
+					name="video"
+					accept="video/mp4"
+					required
+				/>
+				<br /><br />
+				<button type="submit">Upload</button>
+			</form>
+			<div id="status"></div>
+			<div id="error"></div>
+		</div>
+
+		<script>
+			document
+				.getElementById("uploadForm")
+				.addEventListener("submit", async (e) => {
+					e.preventDefault();
+
+					const status = document.getElementById("status");
+					const error = document.getElementById("error");
+					status.textContent = "";
+					error.textContent = "";
+
+					const formData = new FormData();
+					const fileInput = document.getElementById("videoInput");
+					formData.append("video", fileInput.files[0]);
+
+					try {
+						const response = await fetch("http://localhost:3000/upload", {
+							method: "POST",
+							body: formData,
+						});
+
+						const result = await response.json();
+
+						if (response.ok) {
+							status.textContent = `Success: ${result.message} (File: ${result.filename})`;
+						} else {
+							error.textContent = `Error: ${result.error}`;
+						}
+					} catch (err) {
+						error.textContent = "Error uploading file";
+					}
+				});
+		</script>
 	</body>
 </html>
