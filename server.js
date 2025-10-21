@@ -44,7 +44,7 @@ app.post("/upload", upload.single("video"), async (req, res) => {
 			.json({ error: "No file uploaded or invalid file type" });
 	}
 
-	const videoFolder = `/output`;
+	const videoFolder = `/app/output`;
 
 	const kdenlive = fs.readFileSync(`/app/kdenlive/index.mlt`, "utf8");
 	// Parse XML to JS object
