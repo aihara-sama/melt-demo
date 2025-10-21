@@ -62,13 +62,10 @@
 
 					// https://melt-demo.onrender.com
 					try {
-						const response = await fetch(
-							"https://melt-demo.onrender.com/upload",
-							{
-								method: "POST",
-								body: formData,
-							}
-						);
+						const response = await fetch("http://localhost:3000/upload", {
+							method: "POST",
+							body: formData,
+						});
 
 						const result = await response.json();
 

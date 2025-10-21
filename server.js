@@ -69,7 +69,9 @@ app.post("/upload", upload.single("video"), async (req, res) => {
 	fs.writeFileSync(`/app/kdenlive/index.mlt`, updatedXml);
 
 	try {
-		const result = child_process.execSync(`melt "/app/kdenlive/index.mlt"`);
+		const result = child_process.execSync(
+			`melt -profile atsc_1080p_25 color:0 out=150 "${filePath}" in=0 out=150 in=0 out=150 -filter frei0r.select0r color=0x000000ff invert=1 subspace=0 shape=0.5 edge=0.9 delta_r=0.2 delta_g=0.2 delta_b=0.2 slope=0 operation=0.5 -transition mix a_track=0 b_track=1 always_active=1 sum=1 -transition qtblend a_track=0 b_track=2 always_active=1 -consumer avformat:/app/melt-demo/output/1.webm f=webm vcodec=libvpx-vp9 acodec=libvorbis vb=20M crf=15 pix_fmt=yuva420p aq=4 channels=2 threads=0 real_time=-1`
+		);
 		console.log({ result });
 		return res.json({
 			message: "File uploaded successfully",
@@ -79,7 +81,7 @@ app.post("/upload", upload.single("video"), async (req, res) => {
 		console.log({ error });
 		return res.json({
 			message: "File uploaded successfully",
-			error,
+			error: Buffer.from(error.stderr).toString(),
 		});
 	}
 
