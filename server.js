@@ -87,6 +87,7 @@ app.post("/upload", upload.single("video"), async (req, res) => {
 
 	res.json({
 		message: "File uploaded successfully",
+		result: updatedXml,
 	});
 });
 
