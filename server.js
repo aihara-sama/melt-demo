@@ -84,7 +84,7 @@ app.get("/read", (req, res) => {
 	res.json({ result });
 });
 app.get("/ls", (req, res) => {
-	const result = logLs();
+	const result = __dirname;
 	console.log({ result });
 
 	res.json({ result });
