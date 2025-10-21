@@ -57,6 +57,14 @@ function logMeltVersion() {
 		return Buffer.from(error.output[1]).toString("utf-8");
 	}
 }
+function logLs() {
+	try {
+		const result = child_process.execSync(`ls`);
+		return Buffer.from(result).toString("utf-8");
+	} catch (error) {
+		return Buffer.from(error.output[1]).toString("utf-8");
+	}
+}
 
 // Log melt version on server startup
 console.log("init log!!!", logMeltVersion());
@@ -71,6 +79,12 @@ app.get("/read", (req, res) => {
 	const result = fs.readFileSync(path.join(outputDir, "file.txt"), {
 		encoding: "utf-8",
 	});
+	console.log({ result });
+
+	res.json({ result });
+});
+app.get("/ls", (req, res) => {
+	const result = logLs();
 	console.log({ result });
 
 	res.json({ result });
