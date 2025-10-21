@@ -1,0 +1,24 @@
+{
+	"name": "kdenlive",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"directories": {
+		"lib": "lib"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/aihara-sama/kdenlive.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/aihara-sama/kdenlive/issues"
+	},
+	"homepage": "https://github.com/aihara-sama/kdenlive#readme"
+}
