@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 function logMeltVersion() {
 	try {
 		const result = child_process.execSync(`melt -v`);
-		return result;
+		return Buffer.from(result).toString("utf-8");
 	} catch (error) {
 		return Buffer.from(error.output[1]).toString("utf-8");
 	}
