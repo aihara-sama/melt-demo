@@ -50,7 +50,7 @@ app.post("/upload", upload.single("video"), async (req, res) => {
 	// Parse XML to JS object
 	const result = await xml2js.parseStringPromise(kdenlive);
 
-	const filePath = `/app/${req.file.filename}`;
+	const filePath = `${videoFolder}/${req.file.filename}`;
 
 	// Set source path
 	result.mlt.chain[0].property[2]._ = filePath;
