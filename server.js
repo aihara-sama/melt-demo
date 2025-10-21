@@ -2,10 +2,48 @@ const child_process = require("child_process");
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
+const cors = require("cors");
+const multer = require("multer");
 
 const app = express();
 const port = process.env.PORT || 3000;
-const outputDir = path.join(__dirname, "outputs");
+const outputDir = path.join(__dirname, "output");
+fs.mkdirSync(outputDir, { recursive: true });
+
+app.use(cors());
+
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, "output/");
+	},
+	filename: (req, file, cb) => {
+		const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+		cb(null, uniqueSuffix + "-" + file.originalname);
+	},
+});
+
+const upload = multer({
+	storage: storage,
+	fileFilter: (req, file, cb) => {
+		if (file.mimetype === "video/mp4") {
+			cb(null, true);
+		} else {
+			cb(new Error("Only MP4 files are allowed"), false);
+		}
+	},
+});
+
+app.post("/upload", upload.single("video"), (req, res) => {
+	if (!req.file) {
+		return res
+			.status(400)
+			.json({ error: "No file uploaded or invalid file type" });
+	}
+	res.json({
+		message: "File uploaded successfully",
+		filename: req.file.filename,
+	});
+});
 
 // Function to run 'melt -v' and log the output
 function logMeltVersion() {
@@ -22,7 +60,6 @@ console.log("init log!!!", logMeltVersion());
 
 // Basic endpoint to verify the server is running
 app.get("/write", (req, res) => {
-	fs.mkdirSync(outputDir, { recursive: true });
 	const result = fs.writeFileSync(path.join(outputDir, "file.txt"), "input!!!");
 
 	res.send({ result });
