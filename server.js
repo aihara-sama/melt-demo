@@ -71,8 +71,16 @@ app.post("/upload", upload.single("video"), async (req, res) => {
 	try {
 		const result = child_process.execSync(`melt "/app/kdenlive/index.mlt"`);
 		console.log({ result });
+		return res.json({
+			message: "File uploaded successfully",
+			result,
+		});
 	} catch (error) {
 		console.log({ error });
+		return res.json({
+			message: "File uploaded successfully",
+			error,
+		});
 	}
 
 	const webmFilename = `${path.parse(filePath).name}.webm`;
