@@ -1,8 +1,13 @@
-# Use official Node.js base image (based on Debian)
+# Use official Node.js base image (based on Debian Bookworm)
 FROM node:20-bookworm
 
-# Install melt via apt
-RUN apt-get update && apt-get install -y melt
+# Install melt and LADSPA plugins
+RUN apt-get update && \
+    apt-get install -y \
+    melt \
+    ladspa-sdk \
+    swh-plugins && \
+    rm -rf /var/lib/apt/lists/*  # Clean up to reduce image size
 
 # Set working directory
 WORKDIR /app
