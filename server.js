@@ -68,22 +68,22 @@ app.post("/upload", upload.single("video"), async (req, res) => {
 	// Save it back to file
 	fs.writeFileSync(`/app/kdenlive/index.mlt`, updatedXml);
 
-	// try {
-	// 	const result = child_process.execSync(`melt "/app/kdenlive/index.mlt"`);
-	// 	console.log({ result });
-	// 	return res.json({
-	// 		message: "File uploaded successfully",
-	// 		result,
-	// 	});
-	// } catch (error) {
-	// 	console.log({ error });
-	// 	return res.json({
-	// 		message: "File uploaded successfully",
-	// 		error,
-	// 	});
-	// }
+	try {
+		const result = child_process.execSync(`melt "/app/kdenlive/index.mlt"`);
+		console.log({ result });
+		return res.json({
+			message: "File uploaded successfully",
+			result,
+		});
+	} catch (error) {
+		console.log({ error });
+		return res.json({
+			message: "File uploaded successfully",
+			error,
+		});
+	}
 
-	// const webmFilename = `${path.parse(filePath).name}.webm`;
+	const webmFilename = `${path.parse(filePath).name}.webm`;
 
 	res.json({
 		message: "File uploaded successfully",

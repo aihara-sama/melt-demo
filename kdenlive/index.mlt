@@ -1,10 +1,10 @@
-<mlt LC_NUMERIC="en_US.UTF-8" producer="main_bin" root="C:/Program Files/kdenlive/bin" version="7.33.0">
+<mlt LC_NUMERIC="en_US.UTF-8" producer="main_bin" version="7.33.0">
   <profile colorspace="709" description="HD 1080p 25 fps" display_aspect_den="9" display_aspect_num="16" frame_rate_den="1" frame_rate_num="25" height="1080" progressive="1" sample_aspect_den="1" sample_aspect_num="1" width="1920"/>
-  <consumer acodec="libvorbis" aq="4" channels="2" crf="15" deinterlacer="linearblend" f="webm" g="15" in="0" mlt_image_format="rgba" mlt_service="avformat" out="150" pix_fmt="yuva420p" qcomp="1" real_time="-1" rescale="bilinear" target="C:\Users\aihar\OneDrive\Desktop\Live Wallpaper Vanila/assets/videos/desktop.webm" threads="0" vb="20M" vcodec="libvpx-vp9"/>
+  <consumer acodec="libvorbis" aq="4" channels="2" crf="15" deinterlacer="linearblend" f="webm" g="15" in="0" mlt_image_format="rgba" mlt_service="avformat" out="150" pix_fmt="yuva420p" qcomp="1" real_time="-1" rescale="bilinear" target="/app/output/1761048622222-413435554-grok-video-6c47d1c2-74de-4cf1-b743-8e21f1d10440.webm" threads="0" vb="20M" vcodec="libvpx-vp9"/>
   <chain id="chain17" out="00:00:06.000">
     <property name="length">151</property>
     <property name="eof">pause</property>
-    <property name="resource">C:\Users\aihar\OneDrive\Desktop\Live Wallpaper Vanila\assets\source\desktop.ini</property>
+    <property name="resource">/app/output/1761048622222-413435554-grok-video-6c47d1c2-74de-4cf1-b743-8e21f1d10440.mp4</property>
     <property name="mlt_service">avformat-novalidate</property>
     <property name="meta.media.nb_streams">2</property>
     <property name="meta.media.0.stream.type">video</property>
@@ -66,7 +66,7 @@
   <chain id="chain0" out="00:00:06.000">
     <property name="length">151</property>
     <property name="eof">pause</property>
-    <property name="resource">C:\Users\aihar\OneDrive\Desktop\Live Wallpaper Vanila\assets\source\desktop.ini</property>
+    <property name="resource">/app/output/1761048622222-413435554-grok-video-6c47d1c2-74de-4cf1-b743-8e21f1d10440.mp4</property>
     <property name="mlt_service">avformat-novalidate</property>
     <property name="seekable">1</property>
     <property name="audio_index">1</property>
@@ -130,7 +130,7 @@
   <chain id="chain1" out="00:00:06.000">
     <property name="length">151</property>
     <property name="eof">pause</property>
-    <property name="resource">C:\Users\aihar\OneDrive\Desktop\Live Wallpaper Vanila\assets\source\desktop.ini</property>
+    <property name="resource">/app/output/1761048622222-413435554-grok-video-6c47d1c2-74de-4cf1-b743-8e21f1d10440.mp4</property>
     <property name="mlt_service">avformat-novalidate</property>
     <property name="seekable">1</property>
     <property name="audio_index">1</property>
