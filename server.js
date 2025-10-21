@@ -12,6 +12,9 @@ fs.mkdirSync(outputDir, { recursive: true });
 
 app.use(cors());
 
+app.use(express.static("public"));
+app.use("/output", express.static("output")); // Serve files from output folder
+
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		cb(null, "output/");
